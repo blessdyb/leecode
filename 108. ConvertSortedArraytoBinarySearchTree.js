@@ -21,3 +21,28 @@ var sortedArrayToBST = function(nums) {
     }
     return null;
 };
+
+var sortedArrayToBST = function(nums) {
+    if (nums.length) {
+        const root = new TreeNode(nums[Math.floor(nums.length / 2)]);
+        const stack = [[0, nums.length, root]];
+        while(stack.length) {
+            const [start, end, node] = stack.shift();
+            const middle = Math.floor((start + end) / 2);
+            
+            if (middle > start) {
+                const left = new TreeNode(nums[Math.floor((start + middle) / 2)]);
+                node.left = left;
+                stack.push([start, middle, left]);
+            }
+            
+            if (middle < end - 1) {
+                const right = new TreeNode(nums[Math.floor((middle + 1 + end) / 2)]);
+                node.right = right;
+                stack.push([middle + 1, end, right]);
+            }
+        }
+        return root;
+    }
+    return null;
+};
