@@ -22,3 +22,32 @@ var minDepth = function(root) {
     }
     return 0;
 };
+
+var minDepth = function(root) {
+    let depth = 0;
+    if (root) {
+        const stack = [root];
+        depth = 1;
+        let count = 1;
+        let cursor = 0;
+        while(stack.length) {
+            const node = stack.shift();
+            cursor++;
+            if (!node.left && !node.right) {
+                break;   
+            }
+            if (node.left) {
+                stack.push(node.left);   
+            }
+            if (node.right) {
+                stack.push(node.right);   
+            }
+            if (cursor === count) {
+                depth++;
+                count = stack.length;
+                cursor = 0;
+            }
+        }
+    }
+    return depth;
+};
