@@ -1,1 +1,1 @@
-LeeCode Solutions
+LeeCode Solutions JavaScript Version
