@@ -20,3 +20,24 @@ var hasPathSum = function(root, targetSum) {
     }
     return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
 };
+
+var hasPathSum = function(root, targetSum) {
+    if (!root) {
+        return false;
+    }
+    const stack = [[root, targetSum]];
+    while(stack.length) {
+        const [node, num] = stack.pop();
+        const diff = num - node.val;
+        if (!node.left && !node.right && diff === 0) {
+            return true;   
+        }
+        if (node.left) {
+            stack.push([node.left, diff]);   
+        }
+        if (node.right) {
+            stack.push([node.right, diff]);   
+        }
+    }
+    return false;
+};
