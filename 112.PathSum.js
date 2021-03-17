@@ -15,19 +15,8 @@ var hasPathSum = function(root, targetSum) {
     if (!root) {
         return false;
     }
-    if (root.val === targetSum) {
-        if (!root.left && !root.right) {
-            return true;   
-        }
-        return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
-    } else {
-        if (root.left && root.right) {
-            return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);   
-        } else if (root.left) {
-            return hasPathSum(root.left, targetSum - root.val);
-        } else if (root.right) {
-            return hasPathSum(root.right, targetSum - root.val);
-        }
+    if (!root.left && !root.right) {
+        return root.val === targetSum;
     }
-    return false;
+    return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
 };
