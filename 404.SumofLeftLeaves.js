@@ -20,6 +20,7 @@ var sumOfLeftLeaves = function(root) {
     return 0;
 };
 
+// BFS
 var sumOfLeftLeaves = function(root) {
     let sum = 0;
     const stack = [root];
@@ -37,4 +38,20 @@ var sumOfLeftLeaves = function(root) {
     return sum;
 };
 
-
+//DFS
+var sumOfLeftLeaves = function(root) {
+    let sum = 0;
+    const stack = [root];
+    while (stack.length) {
+        const node = stack.pop();
+        if (node) {
+            stack.push(node.right);
+            if (node.left && !node.left.left && !node.left.right) {
+                sum += node.left.val;   
+            } else {
+                stack.push(node.left);   
+            }
+        }
+    }
+    return sum;
+};
