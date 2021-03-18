@@ -27,3 +27,22 @@ var binaryTreePaths = function(root) {
     tranverse(root, []);
     return paths;
 };
+
+var binaryTreePaths = function(root) {
+    const paths = [];
+    const stack = [[root, []]];
+    while(stack.length) {
+        const [node, ancestor] = stack.shift();
+        const updatedAncestor = ancestor.concat(node.val);
+        if (!node.left && !node.right) {
+            paths.push(updatedAncestor.join('->'));
+        }
+        if (node.left) {
+            stack.push([node.left, updatedAncestor]);
+        }
+        if (node.right) {
+            stack.push([node.right, updatedAncestor])
+        }
+    }
+    return paths;
+};
