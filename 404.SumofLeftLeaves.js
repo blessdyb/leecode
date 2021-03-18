@@ -19,3 +19,22 @@ var sumOfLeftLeaves = function(root) {
     }
     return 0;
 };
+
+var sumOfLeftLeaves = function(root) {
+    let sum = 0;
+    const stack = [root];
+    while (stack.length) {
+        const node = stack.pop();
+        if (node) {
+            if (node.left && !node.left.left && !node.left.right) {
+                sum += node.left.val;   
+            } else {
+                stack.push(node.left);   
+            }
+            stack.push(node.right);
+        }
+    }
+    return sum;
+};
+
+
