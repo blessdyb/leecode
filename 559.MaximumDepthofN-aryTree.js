@@ -17,3 +17,23 @@ var maxDepth = function(root) {
     }
     return 0;
 };
+
+var maxDepth = function(root) {
+    const stack = [root];
+    let depth = 0;
+    let count = 1;
+    let cursor = 0;
+    while(stack.length) {
+        const node = stack.shift();
+        if (node) {
+            node.children.forEach(c => stack.push(c));
+            cursor++;
+            if (cursor === count) {
+                cursor = 0;
+                count = stack.length;
+                depth++;
+            }
+        }
+    }
+    return depth;
+ };
