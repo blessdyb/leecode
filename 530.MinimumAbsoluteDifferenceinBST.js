@@ -27,3 +27,27 @@ var getMinimumDifference = function(root) {
     })(root);
     return min;
 };
+
+// Non-recursive DFS
+var getMinimumDifference = function(root) {
+    let min = Infinity;
+    const stack = [];
+    let current = root;
+    let previous;
+    while(true) {
+        if (current) {
+            stack.push(current);
+            current = current.left;
+        } else if (stack.length) {
+            current = stack.pop();
+            if (previous) {
+                min = Math.min(min, Math.abs(previous.val - node.val));   
+            }
+            previous = current;
+            current = current.right;
+        } else {
+            break;
+        }
+    }
+    return min;
+};
