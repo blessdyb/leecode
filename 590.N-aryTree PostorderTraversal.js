@@ -22,3 +22,16 @@ var postorder = function(root) {
     })(root);
     return result;
 };
+
+var postorder = function(root) {
+    const stack = [root];
+    const result = [];
+    while(stack.length) {
+        const node = stack.pop();
+        if (node) {
+            result.unshift(node.val);
+            node.children.forEach(i => stack.push(i));
+        }
+    }
+    return result;
+};
