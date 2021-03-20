@@ -5,6 +5,11 @@
  *    this.children = children;
  * };
  */
+
+/**
+ * @param {Node} root
+ * @return {number[]}
+ */
 var preorder = function(root) {
     const result = [];
     (function dfs(node) {
@@ -17,10 +22,7 @@ var preorder = function(root) {
     })(root);
     return result;
  };
-/**
- * @param {Node} root
- * @return {number[]}
- */
+
 var preorder = function(root) {
     const stack = [root];
     const result = [];
