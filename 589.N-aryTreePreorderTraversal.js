@@ -5,7 +5,18 @@
  *    this.children = children;
  * };
  */
-
+var preorder = function(root) {
+    const result = [];
+    (function dfs(node) {
+        if (node) {
+            result.push(node.val);
+            if (node.children) {
+                node.children.forEach(item => dfs(item));
+            }
+        }
+    })(root);
+    return result;
+ };
 /**
  * @param {Node} root
  * @return {number[]}
