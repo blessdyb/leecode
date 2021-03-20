@@ -27,3 +27,15 @@ var isSubtree = function(s, t) {
     
     tranverse(s, t);
 };
+
+var isSubtree = function(s, t) {
+    function treeToString(node, flag) {
+        if (node) {
+            return `#${node.val}${treeToString(node.left, '<')}${treeToString(node.right, '>')}`;
+        }
+        return flag;
+    }
+    const sStr = treeToString(s);
+    const tStr = treeToString(t);
+    return sStr.indexOf(tStr) > -1;
+};
