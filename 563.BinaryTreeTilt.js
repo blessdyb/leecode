@@ -25,3 +25,18 @@ var findTilt = function(root) {
      }
     return sum;
 };
+
+var findTilt = function(root) {
+    let sum = 0;
+    (function tiltNode(node){
+        if (node) {
+            const leftTilt = tiltNode(node.left);
+            const rightTilt = tiltNode(node.right);
+            const tilt = Math.abs(leftTilt - rightTilt);
+            sum += tilt;
+            return node.val + leftTilt + rightTilt;
+        }
+        return 0;
+    })(root);
+    return sum;
+}
