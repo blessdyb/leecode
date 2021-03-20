@@ -12,7 +12,18 @@
  * @return {boolean}
  */
 var isSubtree = function(s, t) {
-    if (s.val === t.val) {
-        return isSubtree(s.left, t.left) && isSubtree()
+    function isSameTree(a, b) {
+        if (!a && !b) {
+            return true;   
+        } else if (!a || !b) {
+            return false;   
+        }
+        return a.val === b.val && isSameTree(a.left, b.left) && isSameTree(a.right, b.right);
     }
+    
+    function tranverse(a, b) {
+        return sameTree(a, b) || tranverse(a.left, b) || tranverse(a.right, b);
+    }
+    
+    tranverse(s, t);
 };
