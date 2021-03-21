@@ -26,3 +26,35 @@ var tree2str = function(t) {
     }
     return '';
 };
+
+var tree2str = function(t) {
+    if (!t) {
+        return '';   
+    }
+    const stack = [t];
+    const visited = [];
+    let result = '';
+    while (stack.length) {
+        const n = stack[stack.length - 1];
+        if (n) {
+            if (visited.indexOf(n) > -1) {
+                stack.pop();
+                result += ')';
+            } else {
+                visited.push(n);
+                result += '(' + n.val;
+                if (!n.left && n.right) {
+                    result += '()';
+                }
+                if (n.right) {
+                    stack.push(n.right);
+                }
+                if (n.left) {
+                    stack.push(n.left);
+                }
+            }
+        }
+    }
+    
+    return result.slice(1, result.length - 1);
+};
