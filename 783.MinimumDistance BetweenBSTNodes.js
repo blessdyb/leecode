@@ -28,6 +28,7 @@ var minDiffInBST = function(root) {
             current = node.right;
         } else {
             break;
+        }
     }
     return min;
 };
