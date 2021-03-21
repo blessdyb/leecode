@@ -28,3 +28,29 @@ var inorderTraversal = function(root) {
     }
     return result
 };
+
+var inorderTraversal = function(root) { //Morris Traversal
+    let current = root;
+    let previous;
+    let result = [];
+    while(current) {
+        if (current.left) {
+            previous = current.left;
+            while(previous.right && previous.right !== current) {
+                previous = previous.right;   
+            }
+            if (previous.right) {
+                result.push(current.val);
+                previous.right = null;
+                current = current.right;
+            } else {
+                previous.right = current;
+                current = current.left;
+            }
+        } else {
+            result.push(current.val);
+            current = current.right;
+        }
+    }
+    return result;
+};
