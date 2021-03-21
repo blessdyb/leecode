@@ -16,3 +16,15 @@ var numTrees = function(n) {
     }
     return sum;
 };
+
+// DP version
+var numTrees = function(n) {
+    const cache = [1, 1];
+    for (let i = 2; i <=n; i++) {
+        cache[i] = 0;
+        for (let j = 1; j<= i; j++) {
+            cache[i] += cache[j - 1] * cache[i - j];
+        }
+    }
+    return cache[n];
+};
