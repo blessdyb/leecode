@@ -37,13 +37,13 @@ var tree2str = function(t) {
     const visited = [];
     let result = '';
     while (stack.length) {
-        const n = stack[stack.length - 1];
+        const n = stack[stack.length - 1]; // first time visiting, just read the value without poping out
         if (n) {
-            if (visited.indexOf(n) > -1) {
+            if (visited.indexOf(n) > -1) { // second time visiting, pop out
                 stack.pop();
                 result += ')';
             } else {
-                visited.push(n);
+                visited.push(n);  // first time visiting, push it into the visited list
                 result += '(' + n.val;
                 if (!n.left && n.right) {
                     result += '()';
