@@ -10,7 +10,7 @@
  * @param {TreeNode} root
  * @return {TreeNode}
  */
-var bstToGst = function(root) {
+var bstToGst = function(root) {  // Morris DFS in order from right to left for BST, so we get a sorted (decreased order) array 
     let sum = 0;
     let previous;
     let current = root;
