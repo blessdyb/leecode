@@ -31,3 +31,36 @@ var isValidBST = function(root) { // Based on the BST defination, we can get a s
     }
     return true;
 };
+
+var isValidBST = function(root) { // Morris traversal
+    let current = root;
+    let previous;
+    let previousValue = Infinity;
+    const isValid = () => previousValue !== Infinity ? previousValue < current.val : true;
+    while(current) {
+        if (!current.left) {
+            if (!isValid()) {
+                return false;    
+            }
+            previousValue = current.val;
+            current = current.right;
+        } else {
+            previous = current.left;
+            while (previous.right && previous.right !== current) { // Check the left subtree's right most leaf node of the current node, so we need to make sure we are not creating a dead loop
+                previous = previous.right;
+            }
+            if (previous.right) {
+                previous.right = null;
+                if (!isValid()) {
+                    return false;    
+                }
+                previousValue = current.val;
+                current = current.right;
+            } else {
+                previous.right = current;
+                current = current.left;
+            }
+        }
+    }
+    return true;
+}
