@@ -10,7 +10,7 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-var rightSideView = function(root) {
+var rightSideView = function(root) { // Just need to get the right most node from each layer
     const stack = [root];
     let count = 1;
     let current = 0;
