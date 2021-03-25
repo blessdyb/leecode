@@ -21,3 +21,17 @@ var preorderTraversal = function(root) {  // Recursive DFS
     })(root);
     return result;
 };
+
+var preorderTraversal = function(root) {
+    const result = [];
+    const stack = [root];
+    while(stack.length) {
+        const node = stack.pop();
+        if (node) {
+            result.push(node.val);
+            stack.push(node.right);
+            stack.push(node.left);
+        }
+    }
+    return result;
+};
