@@ -35,3 +35,29 @@ var preorderTraversal = function(root) { // Stack preOrder
     }
     return result;
 };
+
+var preorderTraversal = function(root) { // Morris traversal
+    const result = [];
+    let current = root;
+    let previous;
+    while(current) {
+        if (!current.left) {
+            result.push(current.val);
+            current = current.right;
+        } else {
+            previous = current.left;
+            while(previous.right && previous.right !== current) {
+                previous = previous.right;
+            }
+            if (!previous.right) {
+                previous.right = current;
+                result.push(current.val);
+                current = current.left;
+            } else {
+                previous.right = null;
+                current = current.right;
+            }
+        }
+    }
+    return result;
+};
