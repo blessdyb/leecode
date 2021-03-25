@@ -10,7 +10,7 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-var preorderTraversal = function(root) {  // Recursive DFS
+var preorderTraversal = function(root) {  // Recursive preOrder
     const result = [];
     (function preorder(node) {
         if (node) {
@@ -22,7 +22,7 @@ var preorderTraversal = function(root) {  // Recursive DFS
     return result;
 };
 
-var preorderTraversal = function(root) {
+var preorderTraversal = function(root) { // Stack preOrder
     const result = [];
     const stack = [root];
     while(stack.length) {
