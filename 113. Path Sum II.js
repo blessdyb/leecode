@@ -29,3 +29,24 @@ var pathSum = function(root, targetSum) {    // Recursive DFS with information f
     })(root, targetSum, []);
     return result;
 };
+
+var pathSum = function(root, targetSum) {  // Stack + BFS
+    const result = [];
+    const stack = [[root, targetSum, []]];
+    while(stack.length) {
+        const [node, target, ancestors] = stack.shift();
+        if (node) {
+            const newAncestors = ancestors.concat([node.val]);
+            if (node.left) {
+                stack.push([node.left, target - node.val, newAncestors]);
+            }
+            if (node.val === target && !node.left && !node.right) {
+                result.push(newAncestors);
+            }
+            if (node.right) {
+                stack.push([node.right, target - node.val, newAncestors]);
+            }
+        }
+    }
+    return result;
+};
