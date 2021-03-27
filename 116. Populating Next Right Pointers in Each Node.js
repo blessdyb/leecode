@@ -12,7 +12,7 @@
  * @param {Node} root
  * @return {Node}
  */
-var connect = function(root) {
+var connect = function(root) {       // Recursive
     if (root) {
         (function c(left, right) {
             if (left && right) {
@@ -22,6 +22,35 @@ var connect = function(root) {
                 c(right.left, right.right)
             }
         })(root.left, root.right);
+    }
+    return root;
+};
+
+var connect = function(root) { // BFS + stack
+    const stack = [root];
+    let count = 1;
+    let current = 0;
+    let previous;
+    while(stack.length) {
+        const node = stack.shift();
+        current++;
+        if (node) {
+            if (previous) {
+                previous.next = node;
+            }
+            previous = node;
+            if (node.left) {
+                stack.push(node.left);
+            }
+            if (node.right) {
+                stack.push(node.right);
+            }
+            if (current === count) {
+                current = 0;
+                previous = null;
+                count = stack.length;
+            }
+        }
     }
     return root;
 };
