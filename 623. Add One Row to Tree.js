@@ -15,7 +15,7 @@
 var addOneRow = function(root, val, depth) {
     if (depth === 1) { // Handle exception
         root = new TreeNode(val, root);
-    } else {
+    } else {           // Stacked BFS
         let layer = 1;
         const stack = [root];
         let count = 1;
@@ -48,3 +48,28 @@ var addOneRow = function(root, val, depth) {
     }
     return root;
 };
+
+var addOneRow = function(root, val, depth) {
+    if (depth === 1) { // Handle exception
+        root = new TreeNode(val, root);
+    } else {           // Stacked DFS preOrder traversing (taking depth when pushing to stack)
+        const stack = [[root, 1]];
+        while(stack.length) {
+            const [node, layer] = stack.pop();
+            if (layer + 1 === depth) {
+                node.left = new TreeNode(val, node.left);
+                node.right = new TreeNode(val, null, node.right);
+            } else {
+                if (node.right) {
+                    stack.push([node.right, layer + 1]);   
+                }
+                if (node.left) {
+                    stack.push([node.left, layer + 1]);
+                }
+            }
+        }
+    }
+    return root;
+};
+
+
