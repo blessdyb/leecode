@@ -55,7 +55,7 @@ var connect = function(root) { // BFS + stack
     return root;
 };
 
-var connect = function(root) {
+var connect = function(root) { // Assume the upper layer's next link has been built, for the lower layer, we can benefit from the next pointer.
     let previous = root;
     while(previous && previous.left) {
         let current = previous;
