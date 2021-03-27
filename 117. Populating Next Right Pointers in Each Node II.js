@@ -41,3 +41,26 @@ var connect = function(root) {
     return root;
 };
 
+var connect = function(root) {       // If we know how to find the start of each layer, then it's easier. Since we don't want to use stack, so the approach is to create a node and point to the first node of next layer.
+    if (root) {
+        let current = root;
+        while(current) {
+            let layerHead = new Node();  // User a layer head pointer to start from the under layer and point to the first node in the next layer
+            let pointer = layerHead;
+            while(current) {  
+                if (current.left) {
+                    pointer.next = current.left;   
+                    pointer = pointer.next;
+                }
+                if (current.right) {
+                    pointer.next = current.right;
+                    pointer = pointer.next;
+                }
+                current = current.next;   // Horizontally move to the next node
+            }
+            current = layerHead.next;     // Move to the next layer
+        }
+    }
+    return root;
+};
+
