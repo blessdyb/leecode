@@ -28,3 +28,28 @@ var flatten = function(root) { // Recursively flatten subleft and subright trees
     }
     return root;
 };
+
+var flatten = function(root) {
+/**
+ * The procedure can be DFS + Morris-like traversal
+ * a. Get left subtree's right most leaf, set it to right subtree
+ * b. Set right subtree to current left subtree and set left subtree to null
+ * c. Continue this process until we reach the right most leaf
+ */
+    let current = root;
+    let previous;
+    while(current) {
+        if (current.left) {
+            previous = current.left;
+            while(previous.right) {
+                previous = previous.right;   
+            }
+            previous.right = current.right;
+            current.right = current.left;
+            current.left = null;
+        } else {
+            current = current.right;   
+        }
+    }
+    return root;
+};
