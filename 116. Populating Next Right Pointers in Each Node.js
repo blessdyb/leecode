@@ -54,3 +54,19 @@ var connect = function(root) { // BFS + stack
     }
     return root;
 };
+
+var connect = function(root) {
+    let previous = root;
+    while(previous && previous.left) {
+        let current = previous;
+        while(current) {
+            current.left.next = current.right;
+            if (current.next) {
+                current.right.next = current.next.left;   
+            }
+            current = current.next;
+        }
+        previous = previous.left;   
+    }
+    return root;
+};
