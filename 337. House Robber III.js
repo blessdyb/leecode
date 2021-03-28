@@ -18,3 +18,30 @@ var rob = function(root) {  // Recursively check the value of rob root node or n
     }
     return 0;   
 };
+
+var rob = function(root) {  // Use hashmap to speed up the calculation
+    const robMap = new WeakMap();   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap
+    const notRobMap = new WeakMap();
+    return (function robHelper(root) {
+        if (root) {
+            let robRoot, notRobRoot;
+            if (robMap.has(root)) {
+                robRoot = robMap.get(root);
+            } else {
+                robRoot = root.val + (root.left ? robHelper(root.left.left) + robHelper(root.left.right) : 0) + (root.right ? robHelper(root.right.left) + robHelper(root.right.right) : 0);
+                robMap.set(root, robRoot);
+            }
+            
+            if (notRobMap.has(root)) {
+                notRobRoot = notRobMap.get(root);
+            } else {
+                notRobRoot = robHelper(root.left) + robHelper(root.right);
+                notRobMap.set(root, notRobRoot);
+            } 
+            return Math.max(robRoot, notRobRoot);
+        } else {
+            return 0;
+        }
+    })(root);
+};
+
