@@ -45,3 +45,36 @@ var rob = function(root) {  // Use hashmap to speed up the calculation
     })(root);
 };
 
+var rob = function(root) {
+    if (root) {
+        // BST traverse the given tree to get a tree value list and also get a node child map which key is the tree value list index and value is the node child index list
+        const treeList = [];
+        const nodeChildMap = {
+            '-1': []   
+        };
+        const stack = [[root, -1]];
+        while(stack.length) {
+            const [node, index] = stack.shift();
+            if (node) {
+                treeList.push(node.val);
+                nodeChildMap[index].push(index + 1);
+                nodeChildMap[index + 1] = [];
+                stack.push([node.left, index + 1]);
+                stack.push([node.right, index + 1]);
+            }
+        }
+        dpRob = Array(treeList.length).fill(0);
+        dpNotRob = Array(treeList.length).fill(0);
+        for (let i = treeList.length - 1; i >= 0; i--) {  // Since parent node's value depends on its children, so for the DP base case, we will need to get the leaf value set up first
+            if(nodeChildMap[i].length) {
+                dpRob[i] = tree[i] + nodeChildMap[i].reduce((acc, childNodeIndex) => acc + dpNotRob[childNodeIndex], 0);
+                dpNotRob[i] = nodeChildMap[i].reduce((acc, childNodeIndex) => acc + Math.max(dpRob[childNodeIndex], dpNotRob[childNodeIndex]), 0);
+            } else {  // Leaf nodes don't have child nodes
+                dpRob[i] = tree[i];
+                dpNotRob[i] = 0;
+            }
+        }
+        return Math.max(dpRob[0], dpNotRob[0]);
+    }
+    return 0;
+};
