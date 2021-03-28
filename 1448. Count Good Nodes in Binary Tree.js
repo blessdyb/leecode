@@ -10,7 +10,7 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var goodNodes = function(root) {
+var goodNodes = function(root) {  // Traverse the tree nodes with its ancestor's maxValue as the additional information.
     let result = 0;
     const stack = [[root, root.val]];
     while(stack.length) {
