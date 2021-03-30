@@ -14,17 +14,9 @@
 var insertIntoBST = function(root, val) {
     if (root) {
         if (root.val > val) {
-            if (root.left) {
-                root.left = insertIntoBST(root.left, val);
-            } else {
-                root.left = new TreeNode(val);
-            }
+            root.left = insertIntoBST(root.left, val);
         } else {
-            if (root.right) {
-                root.right = insertIntoBST(root.right, val);
-            } else {
-                root.right = new TreeNode(val);
-            }
+            root.right = insertIntoBST(root.right, val);
         }
         return root;
     }
