@@ -28,3 +28,23 @@ var maxAncestorDiff = function(root) {
     }
     return max;
 };
+
+var maxAncestorDiff = function(root) { // To get the max diff between node and its ancestors, we only need to compare the current node with tha max/min values from it's ancestors instead of all.
+    let result = -Infinity;
+    const stack = [[root, root.val, root.val]];
+    while(stack.length) {
+        let [node, min, max] = stack.pop();
+        if (node) {
+            result = Math.max(Math.abs(node.val - min), Math.abs(node.val - max), result);
+            min = min > node.val ? node.val : min;
+            max = max < node.val ? node.val : max;
+            if (node.left) {
+                stack.push([node.left, min, max]);
+            }
+            if (node.right) {
+                stack.push([node.right, min, max]);
+            }
+        }
+    }
+    return result;
+};
