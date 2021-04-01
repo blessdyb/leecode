@@ -35,3 +35,24 @@ var isCompleteTree = function(root) {  // Complete tree means for each layer, al
     }
     return true;
 };
+
+var isCompleteTree = function(root) {  // Complete tree means when we traverse the tree layber by layer, we should get a continus value list. So if we give each node index, we just need to compare the index of current node with previous one to make sure the offset is 1.
+    const stack = [[root, 1]];
+    const result = [];
+    while(stack.length) {
+        const [n, index] = stack.shift();
+        if (n) {
+            if (result.length && (result[result.length - 1] + 1) !== index) {
+                return false;
+            }
+            result.push(index);
+            if (n.left) {
+                stack.push([n.left, index * 2]);
+            }
+            if (n.right) {
+                stack.push([n.right, index * 2 + 1]);
+            }
+        }
+    }
+    return true;
+};
