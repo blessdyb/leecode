@@ -21,7 +21,7 @@ var trimBST = function(root, low, high) {
                     previous = previous.left;   
                 }
                 previous.left = root.left;
-                return trimBST(root.right, low, high):
+                return trimBST(root.right, low, high);
             }
             return trimBST(root.left, low, high);
         } else {
