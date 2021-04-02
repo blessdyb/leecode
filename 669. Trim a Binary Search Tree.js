@@ -17,18 +17,17 @@ var trimBST = function(root, low, high) {
         if (root.val < low || root.val > high) {
             if (root.right) {
                 let previous = root.right;
-                while(previous && previous.right) {
-                    previous = previous.right;
+                while(previous.left) {
+                    previous = previous.left;   
                 }
-                previous.right = root.left;
-                return root.right;
-            } else {
-                return root.left;
+                previous.left = root.left;
+                return trimBST(root.right, low, high):
             }
+            return trimBST(root.left, low, high);
         } else {
             root.left = trimBST(root.left, low, high);
             root.right = trimBST(root.right, low, high);
         }
-    }  
+    }
     return root;
 };
