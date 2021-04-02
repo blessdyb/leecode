@@ -43,3 +43,22 @@ var widthOfBinaryTree = function(root) {
     }
     return max;
 };
+
+var widthOfBinaryTree = function(root) {
+    const stack = [[root, 0, 0]];
+    let answer = 0;
+    let currentDepth = 0;
+    while(stack.length) {
+        const [node, depth, index] = stack.shift();
+        if (node) {
+            if (depth !== currentDepth) { // BFS pushing depth info to stack, so we can check it to know if we are entering into a lower layer
+                currentDepth = depth;
+                left = index;
+            }
+            stack.push([node.left, depth + 1, index * 2 - left]);
+            stack.push([node.right, depth + 1, index * 2 + 1 - left]);
+            answer = Math.max(answer, index - left + 1);
+        }
+    }
+    return answer;
+};
