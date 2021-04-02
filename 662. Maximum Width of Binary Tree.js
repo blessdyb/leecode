@@ -62,3 +62,17 @@ var widthOfBinaryTree = function(root) {
     }
     return answer;
 };
+
+var widthOfBinaryTree = function(root) {
+    const leftNodeIndex = [];
+    return (function dfs(node, depth, index) {
+        if (node) {
+            if (depth === leftNodeIndex.length) { //DFS save the most left node index for each layer
+                leftNodeIndex.push(index);
+            }
+            const indexWithOffset = index - leftNodeIndex[depth];
+            return Math.max(indexWithOffset + 1, dfs(node.left, depth + 1, indexWithOffset * 2), dfs(node.right, depth + 1, indexWithOffset * 2 + 1));
+        }
+        return 0;
+    })(root, 0, 0);
+};
