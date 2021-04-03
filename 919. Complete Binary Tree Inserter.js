@@ -34,26 +34,14 @@ var CBTInserter = function(root) {
  * @param {number} v
  * @return {number}
  */
-CBTInserter.prototype.insert = function(v) {  //Brute force since we can always calculate the parent index based on the node stack + depth
-    const total = this.nodes.length;
-    const lastLayerNodes = total - (Math.pow(2, this.depth) - 1);
+CBTInserter.prototype.insert = function(v) {  //Brute force since we can always calculate the parent index based on the child node index with Math.floor(index / 2)
     const node = new TreeNode(v);
     this.nodes.push(node);
-    let parentNode;
-    if (lastLayerNodes === 0) {
-        parentNode = this.nodes[(total + 1) / 2 - 1];
+    let parentNode = this.nodes[Math.floor(this.nodes.length / 2) - 1];
+    if (this.nodes.length % 2 === 0) {
         parentNode.left = node;
     } else {
-        if (total % 2 === 0) {
-            parentNode = this.nodes[((total - lastLayerNodes) + 1) / 2 - 1 + (lastLayerNodes - 1) / 2];
-            parentNode.right = node;
-        } else {
-            parentNode = this.nodes[((total - lastLayerNodes) + 1) / 2 - 1 + lastLayerNodes/ 2];
-            parentNode.left = node;
-        }
-    }
-    if (this.nodes.length >= Math.pow(2, this.depth + 1) - 1) {
-        this.depth++;
+        parentNode.right = node;
     }
     return parentNode.val;
 };
