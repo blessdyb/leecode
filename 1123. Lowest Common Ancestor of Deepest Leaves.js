@@ -11,6 +11,24 @@
  * @return {TreeNode}
  */
 
+var lcaDeepestLeaves = function(root) {
+    let result = null;
+    let maxDepth = 0;
+    (function lca(node, depth) {
+        maxDepth = Math.max(maxDepth, depth);
+        if (node) {
+            const left = lca(node.left, depth + 1);
+            const right = lca(node.right, depth + 1);
+            if (left === right && left === maxDepth) {
+                result = node;   
+            }
+            return Math.max(left, right);
+        }
+        return depth;
+    })(root, 0);
+    return result;
+}
+
 
 var lcaDeepestLeaves = function(root) {  // DFS
     return (function lca(node) {
