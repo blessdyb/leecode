@@ -24,3 +24,22 @@ var constructFromPrePost = function(pre, post) { // Recursive build tree
     }
     return null;
 };
+
+var constructFromPrePost = function(pre, post) { // When preOrder and postOrder reach to a same node, it means we build the whole subtree.
+    const stack = [new TreeNode(pre[0])];
+    let cursor = 0;
+    pre.slice(1).forEach(val => {
+        const node = new TreeNode(val);
+        while(stack[stack.length -1].val === post[cursor]) {
+            stack.pop();
+            cursor++;
+        }
+        if (stack[stack.length -1].left) {
+            stack.left = node;   
+        } else {
+            stack.right = node;   
+        }
+        stack.push(node);
+    });
+    return stack[0];
+};
