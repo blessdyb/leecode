@@ -30,3 +30,23 @@ var allPossibleFBT = function(n) {
         return result;
     }
 };
+
+
+var allPossibleFBT = function(n) {  // DP solution
+    if (n % 2 === 0) {
+        return [];
+    }
+    const dp = [[], [new TreeNode(0)]];
+    for (let i = 3; i <= n; i += 2) {
+        dp[i] = [];
+        for (let j = 1; j < i; j += 2) {
+            dp[j].forEach(l => {
+                dp[i - j - 1].forEach(m => {
+                    const node = new TreeNode(0, l, m);
+                    dp[i].push(node);
+                });
+            });
+        }
+    }
+    return dp[n];
+};
