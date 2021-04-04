@@ -10,7 +10,26 @@
  * @param {TreeNode} root
  * @return {TreeNode}
  */
-var lcaDeepestLeaves = function(root) {
+
+
+var lcaDeepestLeaves = function(root) {  // DFS
+    return (function lca(node) {
+        if (node) {
+            const [depth1, lca1] = lca(node.left);
+            const [depth2, lca2] = lca(node.right);
+            if (depth1 > depth2) {
+                return [depth1, lca1];   
+            } else if (depth1 < depth2) {
+                return [depth2, lca2];   
+            } else {
+                return [depth1, node];   
+            }
+        }
+        return [0, null];
+    })(root)[1];
+};
+
+var lcaDeepestLeaves = function(root) { // BFS + Stack
     let max = -1;
     let leaves = [];
     const stack = [[root, 0, []]];
