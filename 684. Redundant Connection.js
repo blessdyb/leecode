@@ -31,3 +31,46 @@ var findRedundantConnection = function(edges) { // Brute force solution, build t
         }
     }
 }
+
+var findRedundantConnection = function(edges) {  // Union-Find for graph path
+    const parent = [];
+    const rank = [];
+
+    function find(x) {
+        if (parent[x] !== x) {                  // Find the parent node, compress path to make all non-root node point to root node.
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        return x;
+    }
+    
+    for (let i = 0; i < edges.length; i++) {
+        const [x, y] = edges[i];
+        if (!parent[x]) {
+            parent[x] = x;   
+        }
+        if (!parent[y]) {
+            parent[y] = y;
+        }
+        if (!rank[x]) {
+            rank[x] = 1;
+        }
+        if (!rank[y]) {
+            rank[y] = 1;   
+        }
+        const parentX = find(x);
+        const parentY = find(y);
+        
+        if (parentX === parentY) {
+            return [x, y];   
+        }
+        
+        if (rank[parentY] > rank[parentX]) {           // Always merge smaller tree to bigger one.
+            [parentY, parentX] = [parentX, parentY];   
+        }
+        
+        parent[parentY] = parentX;
+        rank[parentX] += rank[parentY];
+    }
+    return [];
+}
