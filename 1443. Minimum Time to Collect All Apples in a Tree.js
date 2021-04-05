@@ -12,8 +12,8 @@ var minTime = function(n, edges, hasApple) {
         graph[x].push(y);
         graph[y].push(x);
     });
-    let visited = {};
-    (function dfs(node) {   // Since any node cost depends on it's child node, so we can use DFS postOrder to accumulate all node's cost based on its child nodes    
+    let visited = {};  // For undirectional graph, we need to avoid the infinite loop
+    return (function dfs(node) {   // Since any node cost depends on it's child node, so we can use DFS postOrder to accumulate all node's cost based on its child nodes    
         let total = 0;
         visited[node] = true;
         graph[node].forEach(c => {
