@@ -25,3 +25,14 @@ var maxProfit = function(prices) {
     }
     return dp[prices.length - 1][0];   // Result we just need to check when we sell stock, if we keep stock in hand, the profit is negative.
 }
+
+
+var maxProfit = function(prices) {     // O(1) Space solution based on DP above
+    let i = 0;
+    let j = -Infinity;
+    for (let k = 0; k < prices.length; k++) {
+        i = Math.max(i, j + prices[k]);
+        j = Math.max(j, -prices[k])
+    }
+    return i;
+}
