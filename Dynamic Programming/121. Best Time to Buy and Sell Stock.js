@@ -36,3 +36,13 @@ var maxProfit = function(prices) {     // O(1) Space solution based on DP above
     }
     return i;
 }
+
+var maxProfit = function(prices) {    // Since we need to get the max for a continous days (buy - sell), it can convert to max sub array problem with profit diff between adjacent days as as element 
+    let max = 0;
+    let dp = 0;
+    for(let i = 1; i < prices.length; i++) {
+        dp = Math.max(dp + prices[i], prices[i]);
+        max = Math.max(dp, max);
+    }
+    return max;
+}
