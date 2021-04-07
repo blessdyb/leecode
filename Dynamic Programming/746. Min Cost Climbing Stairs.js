@@ -9,3 +9,13 @@ var minCostClimbingStairs = function(cost) { // DP
     }
     return dp[cost.length];
 };
+
+var minCostClimbingStairs = function(cost) {
+    let i = 0;
+    let j = 0;
+    for(let k = 2; k <= cost.length; k++) { // Note: we need to pass the last element of cost, so here we use <= instead of <
+        const temp = Math.min(i + cost[k - 2], j + cost[k - 1]);
+        [i, j] = [j, temp];
+    }
+    return j;
+}
