@@ -13,3 +13,7 @@ var countBits = function(num) {
     }
     return dp;
 };
+
+var countBits = function(num) {
+    return (num & (n - 1)) + 1;   
+}
