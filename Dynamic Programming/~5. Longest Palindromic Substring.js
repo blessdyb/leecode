@@ -50,3 +50,24 @@ var longestPalindrom = function(s) {  // DP,  dp[i][j] = dp[i + 1][j - 1] && s[i
     }
     return result;
 };
+
+var longestPalindrome = function(s) { // Base on the state transform equation, we can reduce the space usage
+    const dp  = [];
+    const n = s.length;
+    let max = 0;
+    let result = '';
+    for(let i = n - 1; i >= 0; i--) {
+        for(let j = n - 1; j >= i; j--) {
+            if (j - i < 3) {
+                dp[j] = s[i] === s[j];   
+            } else {
+                dp[j] = s[i] === s[j] && dp[j - 1];
+            }
+            if (dp[j] && j - i + 1 > max) {
+                result = s.substr(i, j - i + 1);
+                max = j - i + 1;
+            }
+        }
+    }
+    return max;
+};
