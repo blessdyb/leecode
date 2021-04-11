@@ -25,3 +25,28 @@ var longestPalindrome = function(s) {          // Brute force
     }
     return result;
 };
+
+var longestPalindrom = function(s) {  // DP,  dp[i][j] = dp[i + 1][j - 1] && s[i] === s[j]
+    const dp = [];
+    const n = s.length;
+    let maxLen = 0;
+    let result = '';
+    for(let i = 1; i <= n; i++) {  // Since the state transfer equation tells us that long string's value relys on shorter one's. We iterate all different sizes from 1 ~ n
+        for(let start = 0; start < i; start++) {
+            const end = i - 1 - start;
+            if (end >= n) {
+                break;   
+            }
+            if (i <= 2) {
+                dp[start][end] = s[start] === s[end];   
+            } else {
+                dp[start][end] = dp[start + 1][end - 1] && s[start] === s[end];
+            }
+            if (dp[start][end] && i > maxLen) {
+                result = s.substr(start, i);
+                maxLen = i;
+            }
+        }
+    }
+    return result;
+};
