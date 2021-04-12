@@ -12,3 +12,15 @@ var numTrees = function(n) {
     }
     return result;
 };
+
+var numTrees = function(n) {
+    const dp = [1, 1];
+    for (let i = 2; i <=n; i++) {
+        let temp = 0;
+        for (let j = 0; j < i; j++) {
+            temp += dp[j] * dp[i - j - 1];
+        }
+        dp[i] = temp;
+    }
+    return dp[n];
+}
