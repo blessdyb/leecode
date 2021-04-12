@@ -71,3 +71,25 @@ var longestPalindrome = function(s) { // Base on the state transform equation, w
     }
     return max;
 };
+
+var longestPalindrome = function(s) {
+    let left = 0, right = 0;
+    const n = s.length;
+    
+    function expandFromCenter(l, r) {
+        while(l >= 0 && r < n && s[l] === s[r]) {
+            l--;
+            r++;
+        }
+        return r - l - 1;
+    }
+    
+    for(let i = 0; i < n; i++) {
+        let len = Math.max(expandFromCenter(i, i), expandFromCenter(i, i + 1));
+        if (len > right - left) {
+            left = i + Math.floor((len - 1) / 2));
+            right = i + Math.floor(len / 2);
+        }
+    }
+    return s.substr(left, right - left + 1);
+}
