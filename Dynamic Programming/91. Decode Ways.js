@@ -68,3 +68,23 @@ var numDecodings = function(s) {  // State transform equation dp[i] = dp[i + 1] 
     }
     return dp[0];
 };
+
+var numDecodings = function(s) {  // DP + Space compression
+    let second = 1;
+    let first = 0;
+    const n = s.length;
+    if (s[n - 1] !== '0') {
+        first = 1;   
+    }
+    for (let i = n - 2; i >= 0; i--) {
+        if (s[i] === '0') {
+            second = first;
+            first = 0;
+        } else {
+            let temp = parseInt(s.substr(i, 2), 10) < 27 ? second : 0;
+            second = first;
+            first = first + temp;
+        }
+    }
+    return first;
+}
