@@ -25,3 +25,30 @@ var generateTrees = function(n) {
     })(1, n);
 };
 
+var generateTrees = function(n) {
+    const dp = [[null], [new TreeNode(1)]];
+    
+    function cloneNode(node, offset) {
+        if (node) {
+            const newNode = new TreeNode(node.val + offset);
+            newNode.left = cloneNode(node.left, offset);
+            newNode.right = cloneNode(node.right, offset);
+            return newNode;
+        }
+        return node;
+    }
+    
+    
+    for(let i = 2; i <= n; i++) {
+        dp[i] = [];
+        for(let j = 0; j < i; j++) {
+            dp[j].forEach(left => {
+                dp[i - j - 1].forEach(right => {
+                    dp[i].push(new TreeNode(j + 1, left, cloneNode(right, j + 1)));  
+                });
+            });
+        }
+    }
+    return dp[n];
+}
+
