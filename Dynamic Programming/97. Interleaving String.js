@@ -21,7 +21,7 @@ var isInterleave = function(s1, s2, s3) {    // Recursive
     }
 };
 
-var isInterleave = function(s1, s2, s3) {
+var isInterleave = function(s1, s2, s3) {   // DP
     if (s1.length + s2.length !== s3) {
         return false;   
     }
