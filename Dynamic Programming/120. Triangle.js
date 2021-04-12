@@ -2,7 +2,7 @@
  * @param {number[][]} triangle
  * @return {number}
  */
-var minimumTotal = function(triangle) {  // DP
+var minimumTotal = function(triangle) {  // DP from top to bottom
     const dp = [[triangle[0][0]]];
     const n = triangle.length;
     for(let i = 1; i < n; i++) {
@@ -14,3 +14,14 @@ var minimumTotal = function(triangle) {  // DP
     }
     return Math.min(...dp[n - 1]);
 };
+
+var minimumTotal = function(triangle) {  // DP from bottom to top
+    const n = triangle.length;
+    const dp = triangle[n - 1];
+    for(let i = n - 2; i >= 0; i--) {
+        for(let j = 0; j <= i; j++) {
+            dp[j] = triangle[i][j] + Math.min(dp[j], dp[j + 1]);   
+        }
+    }
+    return dp[0];
+}
