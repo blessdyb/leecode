@@ -15,5 +15,5 @@ var countBits = function(num) {
 };
 
 var countBits = function(num) {
-    return (num & (n - 1)) + 1;   
+    return (num & (num - 1)) + 1;   
 }
