@@ -30,3 +30,15 @@ var mincostTickets = function(days, costs) {
         return cache[start];
     })(0);
 }; 
+
+var mincostTickets = function(days, costs) {
+    const dp = [0];
+    for(let i = 1; i <= 365; i++) {
+        if (days.indexOf(i) === -1) {
+            dp[i] = dp[i - 1];   
+        } else {
+            dp[i] = Math.min(costs[0] + dp[Math.max(0, i - 1)], costs[1] + dp[Math.max(0, i - 7)], costs[2] + dp[Math.max(0, i - 30)]);   
+        }
+    }
+    return dp[365];
+};
