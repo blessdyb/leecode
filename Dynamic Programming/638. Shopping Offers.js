@@ -21,7 +21,7 @@ var shoppingOffers = function(price, special, needs) {
             }
         }
         if(isSpecialOfferValid) {
-            minPrice = Math.min(minPrice, shoppingOffers(price, special, newNeeds));
+            minPrice = Math.min(minPrice, special[i][needs.length] + shoppingOffers(price, special, newNeeds));
         }
     }
     minPrice = Math.min(minPrice, needs.reduce((acc, item, index) => acc + item * price[index], 0));
