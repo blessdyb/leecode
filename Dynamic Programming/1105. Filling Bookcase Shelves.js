@@ -27,3 +27,27 @@ var minHeightShelves = function(books, shelf_width) {
     }
     return helper(0);
 };
+
+/**
+ * @param {number[][]} books
+ * @param {number} shelf_width
+ * @return {number}
+ */
+var minHeightShelves = function(books, shelf_width) {
+    const n = books.length;
+    const dp = [0];
+    for(let i = 1; i <= n; i++) {
+        let leftWidth = shelf_width;
+        let maxHeightInLayer = 0;
+        for(let j = i; j <= n; j++) {
+            if (leftWidth >= 0 && leftWidth - books[j - 1][0] >= 0) {
+                leftWidth -= books[j - 1][0];
+                maxHeightInLayer = Math.max(maxHeightInLayer, books[j - 1][1]);
+                dp[j] = Math.min(dp[j] || Infinity, dp[i - 1] + maxHeightInLayer);
+            } else {
+                break;   
+            }
+        }
+    }
+    return dp[n];
+};
