@@ -3,7 +3,7 @@
  * @param {number} shelf_width
  * @return {number}
  */
-var minHeightShelves = function(books, shelf_width) {
+var minHeightShelves = function(books, shelf_width) { // Cache + recursive
     const n = books.length;
     const cache = [];
     function helper(i) {
@@ -13,7 +13,7 @@ var minHeightShelves = function(books, shelf_width) {
                 let leftWidth = shelf_width;
                 let maxHeightInThisLayer = 0;
                 let j = i;
-                while(leftWidth > 0 && j < books.length && (leftWidth - books[j][0]) >= 0) {
+                while(leftWidth > 0 && j < books.length && (leftWidth - books[j][0]) >= 0) { // Try all possible combinations
                     maxHeightInThisLayer = Math.max(maxHeightInThisLayer, books[j][1])
                     minHeight = Math.min(minHeight, maxHeightInThisLayer + helper(j + 1));
                     leftWidth -= books[j][0];
@@ -43,7 +43,7 @@ var minHeightShelves = function(books, shelf_width) {
             if (leftWidth >= 0 && leftWidth - books[j - 1][0] >= 0) {
                 leftWidth -= books[j - 1][0];
                 maxHeightInLayer = Math.max(maxHeightInLayer, books[j - 1][1]);
-                dp[j] = Math.min(dp[j] || Infinity, dp[i - 1] + maxHeightInLayer);
+                dp[j] = Math.min(dp[j] || Infinity, dp[i - 1] + maxHeightInLayer);  // From layer one, put try to all books in one layer vs all other combinations
             } else {
                 break;   
             }
