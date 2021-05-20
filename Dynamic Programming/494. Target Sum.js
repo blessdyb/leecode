@@ -62,3 +62,57 @@ var findTargetSumWays = function(nums, target) {
     }
     return target > sum || target < -sum ? 0 : dp[target + sum];
 };
+
+var findTargetSumWays = function(nums, target) {  // convert to 0-1 knapsack problem
+    const n = nums.length;
+    const sum = nums.reduce((acc, item) => acc + item, 0);
+    // N - P = target =>   2N = target + sum => N = (target + sum) / 2
+    const targetSum = (sum + target) / 2;
+    if ((sum + target) % 2 === 1) {
+        return 0;   
+    }
+    const dp = new Array(n + 1).fill(0).map(item => new Array(targetSum + 1).fill(0));
+    dp[0][0] = 1;
+    for(let i = 1; i <= n; i++) {
+        for(let j = 0; j <= targetSum; j++) {
+            dp[i][j] = dp[i - 1][j] + (j - nums[i - 1] >= 0 ? dp[i - 1][j - nums[i - 1]] : 0);   
+        }
+    }
+    return dp[n][targetSum];
+};
+
+var findTargetSumWays = function(nums, target) {
+    const n = nums.length;
+    const sum = nums.reduce((acc, item) => acc + item, 0);
+    const targetSum = (sum + target) / 2;
+    if ((sum + target) % 2) {
+        return 0;   
+    }
+    let dp = new Array(targetSum + 1).fill(0);
+    dp[0] = 1;
+    for(let i = 1; i <=n; i++) {
+        const temp = dp.slice(0);
+        for(let j = 0; j <= targetSum - nums[i - 1]; j++) {
+            temp[j + nums[i - 1] += dp[j]; // push with rolling 1D DP
+        }
+        dp = temp;
+    }
+    return dp[targetSum];
+}
+
+var findTargetSumWays = function(nums, target) {
+    const n = nums.length;
+    const sum = nums.reduce((acc, item) => acc + item, 0);
+    const targetSum = (sum + target) / 2;
+    if ((sum + target) % 2) {
+        return 0;   
+    }
+    let dp = new Array(targetSum + 1).fill(0);
+    dp[0] = 1;
+    for(let i = 1; i <=n; i++) {
+        for(let j = targetSum; j >= nums[i - 1]; j--) {
+            dp[j] += dp[j - nums[i - 1]]; // pull 1D DP
+        }
+    }
+    return dp[targetSum];
+}
