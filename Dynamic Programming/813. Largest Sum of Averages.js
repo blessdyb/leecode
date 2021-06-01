@@ -28,3 +28,22 @@ var largestSumOfAverages = function(nums, k) {
         return dp[k][n];
     })(n, k);
 }
+
+var largestSumOfAverages = function(nums, k) {
+    const n = nums.length;
+    const dp = new Array(k + 1).fill(0).map(item => new Array(n + 1).fill(0));
+    const sums = new Array(n + 1).fill(0);
+    for(let i = 1; i <= n; i++) {
+        sums[i] = sums[i - 1] + nums[i - 1];
+        dp[1][i] = sums[i] / i;
+    }
+    // dp[k][i] = Max(dp[k - 1][j] + sum(nums[j] ... nums[i]) / (i - j))
+    for(let i = 2; i <= k; i++) {
+        for(let j = i; j <= n; j++) {
+            for(let m = i - 1; m < j; m++) {
+                dp[i][j] = Math.max(dp[i][j], dp[i - 1][m] + (sums[j] - sums[m])/(j - m));   
+            }
+        }
+    }
+    return dp[k][n];
+}
