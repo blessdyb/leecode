@@ -1,16 +1,17 @@
-/**
- * In place search and replace, two pointers might be a good solution to try
- */
+package main
+
+// Since the problem asks for a O(1) in-place solution, two pointers is the only one in our toolkit can make it happen.
+// When nums[i] == nums[j], we only need to move j forward
+// Until nums[i] != num[j], we set nums[i + 1] = nums[j] and move both i, j forward
 func removeDuplicates(nums []int) int {
 	i, j := 0, 0
-	length = len(nums)
+	length := len(nums)
 	for j < length {
-		if nums[j] != nums[i] {
-			// Here we want to keep the existing one, so move the slower pointer first and then override the value
+		if nums[i] != nums[j] {
 			i++
 			nums[i] = nums[j]
 		}
 		j++
 	}
-	return i
+	return i + 1
 }

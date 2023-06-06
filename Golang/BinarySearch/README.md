@@ -1,4 +1,4 @@
-## Binary Search
+## [Binary Search](https://beendless.com/2021/08/12/Binary-Search-Deep-Dive/)
 
 To identify a binary search problem, the array in the given problem must be a asending & sorted. If we are asked to resolve a searching task in O(log(n)), in most cases, binary search is the one we need to choose from our toolbox.
 
