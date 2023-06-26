@@ -12,7 +12,7 @@ type TreeNode struct {
 }
 
 // Since the intuitive recursive solution couldn't guarteen any nodes on left can be smaller than the root node or any nodes on the right can be larger than the root nodes.
-// For example: [5,4,6,null,null,3,7]. So if we go with the recursive solution, we need to pass-down the scope to the leaf nodes.
+// For example: [5,4,6,null,null,3,7](https://camo.githubusercontent.com/2b2f3322ff7c6a9a30251309afba36172e1d1d74f4b917026a4451173f47dfe5/68747470733a2f2f636f64652d7468696e6b696e672d313235333835353039332e66696c652e6d7971636c6f75642e636f6d2f706963732f32303233303331303030303832342e706e67). So if we go with the recursive solution, we need to pass-down the scope to the leaf nodes.
 func isValidBSTRecursive(root *TreeNode) bool {
 	var isValidBSTWithMinMax func(node *TreeNode, min, max int) bool
 	isValidBSTWithMinMax = func(node *TreeNode, min, max int) bool {
