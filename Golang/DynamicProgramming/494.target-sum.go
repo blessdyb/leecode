@@ -44,32 +44,32 @@ func findTargetSumWays2DDPI(nums []int, target int) int {
 	return dp[len(nums)-1][target+sum]
 }
 
-/ **
- * Let p, n be the sums of numbers with positive and negative symbols, respectively. 
+/*
+ * Let p, n be the sums of numbers with positive and negative symbols, respectively.
  * Let sum = p + n, target = p - n
  * So p = (sum + target) / 2, n = (sum - target) / 2
  * It means we need to find integers p or n
  * We successfully converted this problem to a 0-1 backpack problem
- * /
+ */
 func findTargetSumWays2DDPII(nums []int, target int) int {
 	sum := 0
 	for _, num := range nums {
 		sum += num
 	}
-	if target > sum || target < -sum || (target + sum) % 2 == 1 {
+	if target > sum || target < -sum || (target+sum)%2 == 1 {
 		return 0
 	}
 	size := (target + sum) / 2
-	dp := make([][]int, len(nums) + 1)
+	dp := make([][]int, len(nums)+1)
 	for i := 0; i <= len(nums); i++ {
-		dp[i] = make([]int, size + 1)
+		dp[i] = make([]int, size+1)
 	}
 	dp[0][0] = 1
 	for i := 1; i <= len(nums); i++ {
 		for j := 0; j <= size; j++ {
-			dp[i][j] = dp[i - 1][j]
-			if j >= nums[i - 1] {
-				dp[i][j] += dp[i - 1][j - nums[i - 1]]
+			dp[i][j] = dp[i-1][j]
+			if j >= nums[i-1] {
+				dp[i][j] += dp[i-1][j-nums[i-1]]
 			}
 		}
 	}
@@ -81,15 +81,15 @@ func findTargetSumWays1DDPII(nums []int, target int) int {
 	for _, num := range nums {
 		sum += num
 	}
-	if target > sum || target < -sum || (sum + target) % 2 == 1 {
+	if target > sum || target < -sum || (sum+target)%2 == 1 {
 		return 0
 	}
 	size := (sum + target) / 2
-	dp := make([]int, size + 1)
+	dp := make([]int, size+1)
 	dp[0] = 1
 	for i := 0; i < len(nums); i++ {
 		for j := size; j >= nums[i]; j-- {
-			dp[j] += dp[j - nums[i]]
+			dp[j] += dp[j-nums[i]]
 		}
 	}
 	return dp[size]
