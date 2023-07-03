@@ -31,3 +31,38 @@ func generateTreesRecursive(n int) []*TreeNode {
 	}
 	return recursive(1, n)
 }
+
+func generateTreesDP(n int) []*TreeNode {
+	if n == 0 {
+		return []*TreeNode{}
+	}
+	dp := make([][]*TreeNode, n+1)
+	dp[0] = []*TreeNode{nil}
+	for i := 1; i <= n; i++ {
+		dp[i] = []*TreeNode{}
+		for j := 0; j < i; j++ {
+			for _, treeL := range dp[j] {
+				for _, treeR := range dp[i-j-1] {
+					temp := &TreeNode{
+						Val:   j + 1,
+						Left:  treeL,
+						Right: cloneTree(treeR, j+1),
+					}
+					dp[i] = append(dp[i], temp)
+				}
+			}
+		}
+	}
+	return dp[n]
+}
+
+func cloneTree(root *TreeNode, offset int) *TreeNode {
+	if root == nil {
+		return root
+	}
+	temp := &TreeNode{}
+	temp.Val = root.Val + offset
+	temp.Left = cloneTree(root.Left, offset)
+	temp.Right = cloneTree(root.Right, offset)
+	return temp
+}
