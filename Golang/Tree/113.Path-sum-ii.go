@@ -8,40 +8,34 @@ type TreeNode struct {
 
 func pathSum(root *TreeNode, targetSum int) [][]int {
 	ret := [][]int{}
+	type TreeNodeWithPath struct {
+		Node *TreeNode
+		Path []int
+	}
+	var dfs func(node *TreeNodeWithPath, target int)
+	dfs = func(node *TreeNodeWithPath, target int) {
+		newPath := append(append([]int{}, node.Path...), node.Node.Val)
+		if node.Node.Val == target && node.Node.Left == nil && node.Node.Right == nil {
+			ret = append(ret, newPath)
+		}
+		if node.Node.Left != nil {
+			dfs(&TreeNodeWithPath{
+				Node: node.Node.Left,
+				Path: newPath,
+			}, target-node.Node.Val)
+		}
+		if node.Node.Right != nil {
+			dfs(&TreeNodeWithPath{
+				Node: node.Node.Right,
+				Path: newPath,
+			}, target-node.Node.Val)
+		}
+	}
 	if root != nil {
-		type ComplextNode struct {
-			Node    *TreeNode
-			Parents []int
-			target  int
-		}
-		stack := []ComplextNode{ComplextNode{
-			Node:    root,
-			Parents: []int{},
-			target:  targetSum,
-		}}
-		for len(stack) > 0 {
-			children := []ComplextNode{}
-			for _, item := range stack {
-				if item.Node.Val == item.target && item.Node.Left == nil && item.Node.Right == nil {
-					ret = append(ret, append(item.Parents, item.Node.Val))
-				}
-				if item.Node.Left != nil {
-					children = append(children, ComplextNode{
-						Node:    item.Node.Left,
-						Parents: append(item.Parents, item.Node.Val),
-						target:  item.target - item.Node.Val,
-					})
-				}
-				if item.Node.Right != nil {
-					children = append(children, ComplextNode{
-						Node:    item.Node.Right,
-						Parents: append(item.Parents, item.Node.Val),
-						target:  item.target - item.Node.Val,
-					})
-				}
-			}
-			stack = children
-		}
+		dfs(&TreeNodeWithPath{
+			Node: root,
+			Path: []int{},
+		}, targetSum)
 	}
 	return ret
 }
