@@ -1,0 +1,2 @@
+# In SQL, when you use the SUM function along with the GROUP BY clause, it allows you to aggregate data and perform calculations on groups of rows based on a specific column or set of columns. The GROUP BY clause divides the result set into groups based on the specified column(s), and then the SUM function calculates the sum of a specific column for each group separately.
+select event_day as day, emp_id, sum(out_time - in_time) as total_time from Employees group by day, emp_id
