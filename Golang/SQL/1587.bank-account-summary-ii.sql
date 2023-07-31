@@ -1,0 +1,2 @@
+# he HAVING clause is used in combination with the GROUP BY clause to filter the results of a query based on aggregated values. It allows you to apply conditions to the results of aggregate functions such as SUM, COUNT, AVG, MAX, MIN, etc. The HAVING clause filters the groups created by the GROUP BY clause, whereas the WHERE clause filters individual rows before grouping. 
+select name, sum(amount) as balance from Users, Transactions where Users.account = Transactions.account group by Transactions.account having balance > 10000
