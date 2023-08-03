@@ -1,0 +1,2 @@
+# JOIN returns only the matching rows from both tables, while LEFT JOIN returns all the rows from the left table and the matching rows from the right table, with NULL values for the non-matching rows
+select w1.id as Id from Weather w1 join Weather w2 on datediff(w1.recordDate, w2.recordDate) = 1 and w1.temperature > w2.temperature
