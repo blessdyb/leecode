@@ -21,7 +21,7 @@ func insertIntoMaxTree(root *TreeNode, val int) *TreeNode {
 				Left: root.Right,
 			}
 		} else {
-			root.Right = insertIntoBST(root.Right, val)
+			root.Right = insertIntoMaxTree(root.Right, val)
 		}
 	}
 	return root
