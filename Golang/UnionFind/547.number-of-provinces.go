@@ -54,3 +54,25 @@ func findCircleNumUF(isConnected [][]int) int {
 	}
 	return ret
 }
+
+func findCircleNumDFS(isConnected [][]int) int {
+	n := len(isConnected)
+	result := 0
+	visited := map[int]bool{}
+	var dfs func(node int)
+	dfs = func(node int) {
+		visited[node] = true
+		for i := 0; i < n; i++ {
+			if isConnected[node][i] == 1 && !visited[i] {
+				dfs(i)
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		if !visited[i] {
+			result++
+			dfs(i)
+		}
+	}
+	return result
+}
