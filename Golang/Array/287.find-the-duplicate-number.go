@@ -33,3 +33,23 @@ func findDuplicateFloyd(nums []int) int {
 	}
 	return fast
 }
+
+func findDuplicateRecursive(nums []int) int {
+	var recursive func(current int) int
+	recursive = func(current int) int {
+		if current == nums[current] {
+			return current
+		}
+		next := nums[current]
+		nums[current] = current
+		return recursive(next)
+	}
+	return recursive(0)
+}
+
+func findDuplicateArrayMap(nums []int) int {
+	for nums[0] != nums[nums[0]] {
+		nums[0], nums[nums[0]] = nums[nums[0]], nums[0]
+	}
+	return nums[0]
+}
