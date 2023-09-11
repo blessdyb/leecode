@@ -38,3 +38,24 @@ func shortestToChar(s string, c byte) []int {
 	}
 	return ret
 }
+
+func shortestToCharMinArray(s string, c byte) []int {
+	ret := make([]int, len(s))
+	prev := -100000
+	for i := 0; i < len(s); i++ {
+		if s[i] == c {
+			prev = i
+		}
+		ret[i] = i - prev
+	}
+	prev = 100000
+	for i := len(s) - 1; i >= 0; i-- {
+		if s[i] == c {
+			prev = i
+		}
+		if ret[i] > prev-i {
+			ret[i] = prev - i
+		}
+	}
+	return ret
+}
