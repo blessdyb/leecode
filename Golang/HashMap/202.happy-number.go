@@ -1,18 +1,16 @@
 package main
 
 func isHappy(n int) bool {
-	cache := map[int]bool{}
-	helper := func(num int) int {
-		sum := 0
-		for num > 0 {
-			t := num % 10
-			sum += t * t
-			num = num / 10
+	hashmap := map[int]bool{}
+	for n != 1 && !hashmap[n] {
+		hashmap[n] = true
+		temp := 0
+		for n > 0 {
+			digit := n % 10
+			n = n / 10
+			temp += digit * digit
 		}
-		return sum
-	}
-	for n != 1 && !cache[n] {
-		n, cache[n] = helper(n), true
+		n = temp
 	}
 	return n == 1
 }
