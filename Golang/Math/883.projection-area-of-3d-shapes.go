@@ -16,7 +16,7 @@ func projectionArea(grid [][]int) int {
 				top++
 			}
 			row = max(row, grid[i][j])
-			col = max(row, grid[j][i])
+			col = max(col, grid[j][i])
 		}
 		front += row
 		side += col
