@@ -22,3 +22,17 @@ func isSumEqual(firstWord string, secondWord string, targetWord string) bool {
 	}
 	return getValue(firstWord)+getValue(secondWord) == getValue(targetWord)
 }
+
+
+0, 0
+0, 1
+
+0, 0
+1, 0
+
+
+1, 0
+0, 0
+
+0, 1
+0, 0
